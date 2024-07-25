@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public InputAction MoveAction;
-    public static event Action<int> OnPlayerDamaged;
+    private PlayerHealth _playerHealth;
     private Rigidbody2D _rigidbody2d;
     private Vector2 move;
     private float _playerSpeed = 5.0f;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         MoveAction.Enable();
         _rigidbody2d = GetComponent<Rigidbody2D>();
+        _playerHealth = GetComponent<PlayerHealth>();
     }
     void Update()
     {
@@ -24,12 +25,5 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 position = (Vector2)_rigidbody2d.position + move * _playerSpeed * Time.deltaTime;
         _rigidbody2d.MovePosition(position);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("DamageZone"))
-        {
-            OnPlayerDamaged?.Invoke(2);
-        }
     }
 }
