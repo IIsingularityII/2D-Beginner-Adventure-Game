@@ -11,7 +11,7 @@ public class MyHealthCollectible : MonoBehaviour
         {
             if (!controller.GetComponent<PlayerHealth>().IsMaxHealth())
             {
-                controller.GetComponent<PlayerHealth>().ChangeHealth(healthIncrease);
+                controller.GetComponent<PlayerHealth>().GetHeal(healthIncrease);
                 Destroy(gameObject);
             }
         }

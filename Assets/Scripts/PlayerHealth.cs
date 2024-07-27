@@ -2,25 +2,57 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-   // public static event Action<int> OnHealthChanged;
+    // public static event Action<int> OnHealthChanged;
+    private int _damageCooldownInSeconds = 2;
     private int _maxHealth = 5;
     private int _currentHealth;
-    // Start is called before the first frame update
+    private bool _isInvincible;
+    private bool _isDead;
     void Start()
     {
         _currentHealth = _maxHealth;
+        _isDead = false;
+        _isInvincible = false;
         ShowHp();
     }
-    public void ChangeHealth(int healthPoints)
+    
+    public void GetHeal(int healPoints)
     {
-        _currentHealth = Mathf.Clamp(_currentHealth + healthPoints,0, _maxHealth);
-        ShowHp();
+        _currentHealth = Mathf.Clamp(_currentHealth + healPoints, 0, _maxHealth);
+        //OnHealthChanged?.Invoke(); prepare for future implementing healthbar ui
+    }
+    public void TakeDamage(int healthPoints)
+    {
+        if (!_isInvincible)
+        {
+            _currentHealth = Mathf.Clamp(_currentHealth - healthPoints, 0, _maxHealth);
+            //OnHealthChanged?.Invoke();
+            ShowHp();
+            if (_currentHealth == 0)
+            {
+                _isDead = true;
+                //GameOver();
+            }
+            else
+            {
+                _isInvincible = true;
+                int damageCooldownInMilliseconds = _damageCooldownInSeconds * 1000;
+                UseInvincibility(damageCooldownInMilliseconds);
+
+            }
+        }
     }
     public bool IsMaxHealth() => _currentHealth == _maxHealth;
+    private async void UseInvincibility(int delay)
+    {
+        await Task.Delay(delay);
+        _isInvincible = !_isInvincible;
+    }
     private void ShowHp()
     {
         Debug.Log($"Current health : {_currentHealth} hp");
