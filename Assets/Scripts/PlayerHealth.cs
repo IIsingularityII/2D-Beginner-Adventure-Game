@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -28,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(int healthPoints)
     {
-        if (!_isInvincible)
+        if (!_isInvincible && !_isDead)
         {
             _currentHealth = Mathf.Clamp(_currentHealth - healthPoints, 0, _maxHealth);
             //OnHealthChanged?.Invoke();
