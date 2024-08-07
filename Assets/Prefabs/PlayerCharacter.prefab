@@ -207,6 +207,23 @@ MonoBehaviour:
       m_Action: Launch
       m_Flags: 0
     m_Flags: 0
+  TalkAction:
+    m_Name: Talk
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: b4266703-8fea-4c56-98d9-1751b2bc6731
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: a54c6c29-a579-4449-a89f-fdce60b9862c
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Talk
+      m_Flags: 0
+    m_Flags: 0
   projectilePrefab: {fileID: 990864326744733576, guid: 2a222727f0c001246873d0182d896068,
     type: 3}
 --- !u!50 &8481821333175239415
@@ -268,7 +285,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.8794258}
+  m_Offset: {x: 0, y: -1.9913791}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 1}
@@ -279,7 +296,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.66, y: 1.0411485}
+  m_Size: {x: 1.66, y: 0.8172419}
   m_EdgeRadius: 0
 --- !u!95 &7191208274323443503
 Animator:
