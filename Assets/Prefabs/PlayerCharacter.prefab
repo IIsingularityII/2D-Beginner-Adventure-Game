@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8248901994760333007}
   - component: {fileID: 7191208274323443503}
   - component: {fileID: 2340252294142845187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +190,25 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  LaunchAction:
+    m_Name: Launch
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 3fb6a941-4b1a-47fa-9823-bc32237219f6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: eac3ea97-68be-41c5-9ce9-9335eddb0b65
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Launch
+      m_Flags: 0
+    m_Flags: 0
+  projectilePrefab: {fileID: 990864326744733576, guid: 2a222727f0c001246873d0182d896068,
+    type: 3}
 --- !u!50 &8481821333175239415
 Rigidbody2D:
   serializedVersion: 4

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -13,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     private float _speed = 1.0f;
     private int _direction = 1;
     private bool _isVertical;
+    private bool _isAgressive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +26,7 @@ public class EnemyBehaviour : MonoBehaviour
         if(_timer < 0)
         {
             _timer = _changeTime;
-            _isVertical = (_direction > 0 || _direction < 0) && !_isVertical;
+            _isVertical = !_isVertical;
             if(_isVertical) 
             {
                 _direction = -_direction;
@@ -45,6 +43,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!_isAgressive) return;
         Vector2 position = _enemyRb.position;
         if (_isVertical)
         {
@@ -62,5 +61,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             playerHealth.TakeDamage(_damageDeal);
         }
+    }
+    public void Fix()
+    {
+        _isAgressive = false;
+        _enemyRb.simulated = false;
+        _animator.SetTrigger("Fixed");
     }
 }
