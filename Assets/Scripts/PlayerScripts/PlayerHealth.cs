@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public static event Action<int> OnHealthChanged;
+    private Animator _animator;
     private int _damageCooldownInSeconds = 2;
     private int _maxHealth = 5;
     private int _currentHealth;
@@ -12,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private bool _isDead;
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _currentHealth = _maxHealth;
         _isDead = false;
         _isInvincible = false;
@@ -28,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!_isInvincible && !_isDead)
         {
+            _animator.SetTrigger("Hit");
             _currentHealth = Mathf.Clamp(_currentHealth - healthPoints, 0, _maxHealth);
             OnHealthChanged?.Invoke(_currentHealth);
             ShowHp();

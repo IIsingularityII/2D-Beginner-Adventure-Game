@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    private Animator _animator;
     private Rigidbody2D _enemyRb;
     [SerializeField] private float _changeTime = 3.0f;
     [SerializeField] private int _damageDeal = 2;
@@ -15,6 +16,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _enemyRb = GetComponent<Rigidbody2D>();
         _timer = _changeTime;
     }
@@ -27,7 +29,18 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _timer = _changeTime;
             _isVertical = (_direction > 0 || _direction < 0) && !_isVertical;
-            if (_isVertical) _direction = -_direction;
+            if(_isVertical) 
+            {
+                _direction = -_direction;
+                _animator.SetFloat("Move X", 0);
+                _animator.SetFloat("Move Y", _direction);
+            }
+            else
+            {
+                _animator.SetFloat("Move X", _direction);
+                _animator.SetFloat("Move Y", 0);
+            }
+            
         }
     }
     private void FixedUpdate()
