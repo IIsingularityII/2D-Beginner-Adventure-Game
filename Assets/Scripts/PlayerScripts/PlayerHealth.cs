@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public static event Action<int> OnHealthChanged;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _damageSound;
+    [SerializeField] private AudioClip _healSound;
     private Animator _animator;
     private int _damageCooldownInSeconds = 2;
     private int _maxHealth = 5;
@@ -13,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private bool _isDead;
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _currentHealth = _maxHealth;
         _isDead = false;
@@ -22,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     
     public void GetHeal(int healPoints)
     {
+        _audioSource.PlayOneShot(_healSound);
         _currentHealth = Mathf.Clamp(_currentHealth + healPoints, 0, _maxHealth);
         ShowHp();
         OnHealthChanged?.Invoke(_currentHealth);
@@ -31,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
         if (!_isInvincible && !_isDead)
         {
             _animator.SetTrigger("Hit");
+            _audioSource.PlayOneShot(_damageSound);
             _currentHealth = Mathf.Clamp(_currentHealth - healthPoints, 0, _maxHealth);
             OnHealthChanged?.Invoke(_currentHealth);
             ShowHp();

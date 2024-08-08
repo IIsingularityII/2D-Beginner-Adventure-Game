@@ -4,6 +4,9 @@ public class EnemyBehaviour : MonoBehaviour
 {
     private Animator _animator;
     private Rigidbody2D _enemyRb;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _hitClip;
+    [SerializeField] private AudioClip _fixClip;
     [SerializeField] private float _changeTime = 3.0f;
     [SerializeField] private int _damageDeal = 2;
     private float _timer;
@@ -14,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _enemyRb = GetComponent<Rigidbody2D>();
         _timer = _changeTime;
@@ -64,8 +68,11 @@ public class EnemyBehaviour : MonoBehaviour
     }
     public void Fix()
     {
+        _audioSource.PlayOneShot(_hitClip);
+        _audioSource.Stop();
         _isAgressive = false;
         _enemyRb.simulated = false;
         _animator.SetTrigger("Fixed");
+        _audioSource.PlayOneShot(_fixClip);
     }
 }

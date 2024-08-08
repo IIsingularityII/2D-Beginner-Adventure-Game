@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public InputAction LaunchAction;
     public InputAction TalkAction;
     [SerializeField] private GameObject projectilePrefab;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _launchClip;
     private Animator _animator;
     private Rigidbody2D _rigidbody2d;
     private Vector2 _move;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         LaunchAction.performed += Launch;
         _animator = GetComponent<Animator>();
         _rigidbody2d = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
         GameObject projectileObject = Instantiate(projectilePrefab, _rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
         MyProjectile projectile = projectileObject.GetComponent<MyProjectile>();
         projectile.Launch(_moveDirection, 300);
+        _audioSource.PlayOneShot(_launchClip);
         _animator.SetTrigger("Launch");
     }
     private void FindFriend(InputAction.CallbackContext context)
@@ -56,4 +60,5 @@ public class PlayerController : MonoBehaviour
             if (character != null) MyUIHandler.instance.DisplayDialogue();
         }
     }
+  
 }
