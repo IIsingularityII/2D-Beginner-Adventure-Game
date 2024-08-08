@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public ParticleSystem SmokeEffect;
     private Animator _animator;
     private Rigidbody2D _enemyRb;
     private AudioSource _audioSource;
@@ -74,5 +75,6 @@ public class EnemyBehaviour : MonoBehaviour
         _enemyRb.simulated = false;
         _animator.SetTrigger("Fixed");
         _audioSource.PlayOneShot(_fixClip);
+        SmokeEffect.Stop();
     }
 }
